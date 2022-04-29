@@ -4,6 +4,7 @@ import { render, screen } from '@testing-library/react';
 import { rest } from 'msw';
 import { setupServer } from 'msw/node';
 import App from './App';
+import userEvent from '@testing-library/user-event';
 
 const jotaro = {
   stand_image:
@@ -39,3 +40,16 @@ test('Should give us a list item with Josukes name in it', async () => {
 });
 
 // we need to prove that state is changing without being able to reach the actual jojo server, I think we can accomplish this by creating a h2 element set to series. lets try that, make sure it renders on the page, make sure it changes when we change the series dropdown and that can be what we prove as a behavioural change.
+
+test('changing dropdown selection should update our state and change the h3 characters from to the state name', async () => {
+  render(<App />);
+  // grab select from screen
+  const select = screen.getByRole('combobox');
+  // grab h3 from screen as well
+  const h3 = screen.getByRole('heading', { level: 3 });
+  //lets interact with that select, lets say we have the test select the value of DiamondIsUnbreakable;
+  userEvent.selectOptions(select, 'DiamondIsUnbreakable');
+  screen.debug();
+  //now lets expect our h3's text context to be equal to whats on the page when we select DiamondIsUnbreakable
+  expect(h3.textContent.trim()).toEqual('Characters from DiamondIsUnbreakable');
+});

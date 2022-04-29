@@ -7,7 +7,6 @@ export default function Home({ characters, setSeries, series }) {
 
   return (
     <div>
-      <h1>Characters from </h1>
       <Filter setSeries={setSeries} />
       <CharacterList characters={characters} series={series} />
     </div>
