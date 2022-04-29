@@ -1,6 +1,6 @@
 // a test for to see if Jotaro Kujo is rendering on the page as a listitem (role) and that the words are there as well. First lets steal the information from the api to create our fake jotaro. we are going to to Josuke, instead.
 
-import { render } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import { rest } from 'msw';
 import { setupServer } from 'msw/node';
 import App from './App';
@@ -21,7 +21,7 @@ const josuke = {
 //next up we are creating a fake server, the res of which will eat our josuke up there.
 
 const server = setupServer(
-  rest.get(`https://jojoapi.herokuapp.com`, (req, res, ctx) =>
+  rest.get(`https://jojoapi.herokuapp.com/`, (req, res, ctx) =>
     res(ctx.json([josuke]))
   )
 );
@@ -33,5 +33,7 @@ afterAll(() => server.close());
 
 test('Should give us a list item with Josukes name in it', async () => {
   render(<App />);
-  screen.debug();
+  const li = await screen.findAllByRole('listitem', { timeout: 3000 });
+  screen.debug(li[0]);
+  //   expect(li).toBeInTheDocument();
 });

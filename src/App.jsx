@@ -1,5 +1,8 @@
 import { useEffect, useState } from 'react';
-import { fetchCharacters } from './services/fetchCharacters';
+import {
+  fetchCharacters,
+  fetchFilteredCharacters,
+} from './services/fetchCharacters';
 import Home from './views/Home';
 
 export default function App() {
@@ -9,7 +12,19 @@ export default function App() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const data = await fetchCharacters(series);
+        const data = await fetchCharacters();
+        setCharacters(data);
+      } catch (error) {
+        console.log(error.message);
+      }
+    };
+    fetchData();
+  }, []);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const data = await fetchFilteredCharacters(series);
         setCharacters(data);
       } catch (error) {
         console.log(error.message);
@@ -18,7 +33,7 @@ export default function App() {
     fetchData();
   }, [series]);
 
-  console.log(characters);
+  // console.log(characters);
 
   return (
     <>
