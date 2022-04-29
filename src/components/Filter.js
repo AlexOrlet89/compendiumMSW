@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 
-export default function Filter() {
-  const [series, setSeries] = useState('StardustCrusaders');
+export default function Filter({ setSeries }) {
+  //   const [series, setSeries] = useState('StardustCrusaders');
 
   const handleSelect = (select) => {
     setSeries(select);
