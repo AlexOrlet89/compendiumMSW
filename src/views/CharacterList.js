@@ -6,7 +6,7 @@ export default function CharacterList({ characters }) {
 
   return (
     <>
-      <div>CharacterList</div>;
+      <div>CharacterList</div>
       <ul>
         {characters.map((character) => (
           <li key={`${character.stand_type}-${character.Stand}`}>
