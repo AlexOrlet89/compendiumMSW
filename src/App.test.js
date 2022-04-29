@@ -37,3 +37,5 @@ test('Should give us a list item with Josukes name in it', async () => {
   screen.debug(li);
   expect(li[0]).toBeInTheDocument();
 });
+
+// we need to prove that state is changing without being able to reach the actual jojo server, I think we can accomplish this by creating a h2 element set to series. lets try that, make sure it renders on the page, make sure it changes when we change the series dropdown and that can be what we prove as a behavioural change.

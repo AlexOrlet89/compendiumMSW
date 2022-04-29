@@ -38,7 +38,7 @@ export default function App() {
   return (
     <>
       <h1>Hello World</h1>
-      <Home characters={characters} setSeries={setSeries} />
+      <Home characters={characters} setSeries={setSeries} series={series} />
     </>
   );
 }
