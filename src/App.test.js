@@ -5,24 +5,24 @@ import { rest } from 'msw';
 import { setupServer } from 'msw/node';
 import App from './App';
 
-const josuke = {
+const jotaro = {
   stand_image:
-    'https://static.jojowiki.com/images/thumb/b/b5/latest/20191015213039/Crazy_Diamond_Infobox_Anime.png/270px-Crazy_Diamond_Infobox_Anime.png',
-  stand_type: ['Close-Range', 'Natural Humanoid'],
+    'https://static.jojowiki.com/images/thumb/c/ca/latest/20191015215651/Star_Platinum_SC_Infobox_Anime.png/270px-Star_Platinum_SC_Infobox_Anime.png',
+  stand_type: ['Close-Range', 'Reconnaissance', 'Natural Humanoid'],
   user_image:
-    'https://static.jojowiki.com/images/thumb/4/49/latest/20191223040816/Josuke_DU_Infobox_Anime.png/270px-Josuke_DU_Infobox_Anime.png',
-  user: 'Josuke Higashikata',
-  Stand: 'Crazy Diamond',
+    'https://static.jojowiki.com/images/thumb/3/3a/latest/20200315224152/Jotaro_SC_Infobox_Anime.png/270px-Jotaro_SC_Infobox_Anime.png',
+  user: 'Jotaro Kujo',
+  Stand: 'Star Platinum',
   gender: 'Male',
   hair_color: 'Black',
-  eye_color: 'Blue',
+  eye_color: 'Green',
 };
 
 //next up we are creating a fake server, the res of which will eat our josuke up there.
 
 const server = setupServer(
-  rest.get(`https://jojoapi.herokuapp.com/`, (req, res, ctx) =>
-    res(ctx.json([josuke]))
+  rest.get(`https://jojoapi.herokuapp.com/StardustCrusaders`, (req, res, ctx) =>
+    res(ctx.json([jotaro]))
   )
 );
 
@@ -34,6 +34,6 @@ afterAll(() => server.close());
 test('Should give us a list item with Josukes name in it', async () => {
   render(<App />);
   const li = await screen.findAllByRole('listitem', { timeout: 3000 });
-  screen.debug(li[0]);
-  //   expect(li).toBeInTheDocument();
+  screen.debug(li);
+  expect(li[0]).toBeInTheDocument();
 });
